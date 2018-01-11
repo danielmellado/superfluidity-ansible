@@ -1,0 +1,63 @@
+testbed_users:
+    - name: daniel
+      email: dmellado@redhat.com
+      state: present
+
+    - name: luis
+      email: ltomasbo@redhat.com
+      state: present
+
+    - name: carlosm
+      email: carlos-martins-marques@alticelabs.com
+      state: present
+
+    - name: claudio
+      email: claudio.pisa@uniroma2.it
+      state: present
+
+    - name: rufael
+      email: rufael@unified-streaming.com
+      state: present
+
+testbed_projects:
+    - name: rh
+      description: 'RH project'
+      state: present
+      members:
+          - daniel
+          - luis
+      quota:
+          cores: -1
+          fixed_ips: -1
+          floatingip: -1
+          gigabytes: -1
+          instances: -1
+          port: -1
+          network: -1
+          subnet: -1
+          key_pairs: -1
+          per_volume_gigabytes: -1
+          ram: -1
+          security_group_rule: -1
+          security_group: -1
+          server_group_members: -1
+          server_groups: -1
+          router: -1
+
+    - name: alb
+      description: 'Altice Labs project'
+      state: present
+      members:
+          - carlosm
+
+    - name: cnit
+      description: 'CNIT project'
+      state: present
+      members:
+          - claudio
+
+    - name: us
+      description: 'Unified Streaming project'
+      state: present
+      members:
+          - rufael

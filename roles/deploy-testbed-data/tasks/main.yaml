@@ -1,0 +1,72 @@
+---
+- name: create openstack users
+  os_user:
+      name: "{{ item.name }}"
+      email: "{{ item.email }}"
+      state: "{{ item.state | default('present') }}"
+      cloud: "{{ cloud }}"
+      domain: Default
+      endpoint_type: admin
+      region_name: RegionOne
+      update_password: on_create
+      password: "{{ lookup('password', '/tmp/{{ item.name }}.password chars=ascii_letters length=15') }}"
+      validate_certs: false
+  with_items:
+    - "{{ testbed_users }}"
+  register: new_users
+
+- name: create openstack projects
+  os_project:
+      name: "{{ item.name }}"
+      description: "{{ item.description }}"
+      endpoint_type: admin
+      state: "{{ item.state | default('present')}}"
+      cloud: "{{ cloud }}"
+      validate_certs: false
+  with_items: "{{ testbed_projects }}"
+
+- name: assign users to projects
+  os_user_role:
+      endpoint_type: admin
+      user: "{{ item.1 }}"
+      project: "{{ item.0.name }}"
+      role: '_member_'
+      cloud: "{{ cloud }}"
+      validate_certs: false
+  when: (item.0.state | default('present')) == 'present'
+  with_subelements:
+    - "{{ testbed_projects }}"
+    - members
+
+- name: set project limits
+  os_quota:
+    endpoint_type: admin
+    name: "{{ item.name }}"
+    cloud: "{{ cloud }}"
+    cores: "{{ item.quota.cores | default(omit) }}"
+    backup_gigabytes: "{{ item.quota.backup_gigabytes | default(omit)}}"
+    backups: "{{ item.quota.backups | default(omit)}}"
+    fixed_ips: "{{ item.quota.fixed_ips | default(omit)}}"
+    floatingip: "{{ item.quota.flotaingip | default(omit)}}"
+    gigabytes: "{{ item.quota.gigabytes | default(omit)}}"
+    injected_file_size: "{{ item.quota.injected_file_size | default(omit)}}"
+    injected_files: "{{ item.quota.injected_files | default(omit)}}"
+    injected_path_size: "{{ item.quota.injected_path | default(omit)}}"
+    instances: "{{ item.quota.instances | default(omit)}}"
+    port: "{{ item.quota.port | default(omit)}}"
+    network: "{{ item.quota.network | default(omit)}}"
+    subnet: "{{ item.quota.subnet | default(omit)}}"
+    key_pairs: "{{ item.quota.key_pairs | default(omit)}}"
+    per_volume_gigabytes: "{{ item.quota.per_volume_gigabytes | default(omit)}}"
+    properties: "{{ item.quota.properties | default(omit)}}"
+    ram: "{{ item.quota.ram | default(omit)}}"
+    security_group_rule: "{{ item.quota.security_group_rule | default(omit)}}"
+    security_group: "{{ item.quota.security_group | default(omit)}}"
+    server_group_members: "{{ item.quota.server_group_members | default(omit)}}"
+    server_groups: "{{ item.quota.server_groups | default(omit)}}"
+    snapshots: "{{ item.quota.snapshots | default(omit)}}"
+    volumes: "{{ item.quota.volumes | default(omit)}}"
+    router: "{{ item.quota.router | default(omit)}}"
+  when: item.quota is defined
+  with_items:
+    - "{{ testbed_projects }}"
