@@ -19,6 +19,18 @@ testbed_users:
       email: rufael@unified-streaming.com
       state: present
 
+    - name: giuliana
+      email: giuliana.carullo@intel.com
+      state: present
+
+    - name: ruth
+      email: ruth1.quinn@intel.com
+      state: present
+
+    - name: vincenzo
+      email: vincenzo.m.riccobene@intel.com
+      state: present
+
 testbed_projects:
     - name: rh
       description: 'RH project'
@@ -61,3 +73,11 @@ testbed_projects:
       state: present
       members:
           - rufael
+
+    - name: intel
+      description: 'Intel project'
+      state: present
+      members:
+          - giuliana
+          - ruth
+          - vincenzo
