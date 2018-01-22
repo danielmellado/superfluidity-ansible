@@ -1,4 +1,7 @@
 testbed_users:
+    - name: admin
+      state: present
+
     - name: daniel
       email: dmellado@redhat.com
       state: present
@@ -38,6 +41,7 @@ testbed_projects:
       members:
           - daniel
           - luis
+          - admin
       quota:
           cores: -1
           fixed_ips: -1
@@ -61,18 +65,21 @@ testbed_projects:
       state: present
       members:
           - carlosm
+          - admin
 
     - name: cnit
       description: 'CNIT project'
       state: present
       members:
           - claudio
+          - admin
 
     - name: us
       description: 'Unified Streaming project'
       state: present
       members:
           - rufael
+          - admin
 
     - name: intel
       description 'Intel Project'
@@ -81,3 +88,4 @@ testbed_projects:
         - giuliana
         - ruth
         - vincenzo
+        - admin
