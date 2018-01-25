@@ -1,0 +1,39 @@
+---
+- name: restart neutron
+  service:
+    name: neutron-server
+    state: restarted
+  become: yes
+
+- name: restart nova
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - openstack-nova-api
+    - openstack-nova-conductor
+    - openstack-nova-consoleauth
+    - openstack-nova-novncproxy
+    - openstack-nova-scheduler
+  become: yes
+
+- name: restart cinder
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - openstack-cinder-api
+    - openstack-cinder-backup
+    - openstack-cinder-scheduler
+    - openstack-cinder-volume
+  become: yes
+
+- name: restart heat
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - openstack-heat-api-cfn
+    - openstack-heat-api
+    - openstack-heat-engine
+  become: yes

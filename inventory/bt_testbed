@@ -1,3 +1,13 @@
-bt-testbed-controller
+localhost ansible_connection=local
 
 [bt-testbed-controller]
+super2 ansible_host=10.255.73.6 ansible_connection=ssh ansible_user=root
+
+[bt-testbed-compute]
+super1 ansible_host=10.255.73.5 ansible_connection=ssh ansible_user=root
+super3 ansible_host=10.255.73.7 ansible_connection=ssh ansible_user=root
+super4 ansible_host=10.255.73.8 ansible_connection=ssh ansible_user=root
+
+[bt-testbed:children]
+bt-testbed-controller
+bt-testbed-compute

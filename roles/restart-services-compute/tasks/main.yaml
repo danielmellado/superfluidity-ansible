@@ -1,0 +1,8 @@
+---
+- name: restart nova
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - openstack-nova-compute
+  become: yes

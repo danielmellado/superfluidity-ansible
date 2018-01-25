@@ -1,0 +1,90 @@
+---
+- name: Add v1 notifications for neutron
+  ini_file:
+    path: "{{ neutron_conf_file }}"
+    section: oslo_messaging_notifications
+    option: driver
+    value: messagingv2,messaging
+    backup: yes
+  become: yes
+
+- name: Add notification topic for neutron
+  ini_file:
+    path: "{{ neutron_conf_file }}"
+    section: oslo_messaging_notifications
+    option: topics
+    value: notifications,r_notifications
+    backup: yes
+  notify: restart neutron
+  become: yes
+
+- name: Add v1 notifications for nova
+  ini_file:
+    path: "{{ nova_conf_file }}"
+    section: oslo_messaging_notifications
+    option: driver
+    value: messagingv2,messaging
+    backup: yes
+  become: yes
+
+- name: Add notification topic for nova
+  ini_file:
+    path: "{{ nova_conf_file }}"
+    section: oslo_messaging_notifications
+    option: topics
+    value: notifications,r_notifications
+    backup: yes
+  notify: restart nova
+  become: yes
+
+- name: Check if cinder is on the system
+  stat:
+    path: "{{ cinder_conf_file }}"
+  register: cinder_conf
+
+- name: Add v1 notifications for cinder
+  ini_file:
+    path: "{{ cinder_conf_file }}"
+    section: oslo_messaging_notifications
+    option: driver
+    value: messagingv2,messaging
+    backup: yes
+  when: cinder_conf.stat.exists == True
+  become: yes
+
+- name: Add notification topic for cinder
+  ini_file:
+    path: "{{ cinder_conf_file }}"
+    section: oslo_messaging_notifications
+    option: topics
+    value: notifications,r_notifications
+    backup: yes
+  notify: restart cinder
+  when: cinder_conf.stat.exists == True
+  become: yes
+
+- name: Check if heat is on the system
+  stat:
+    path: "{{ heat_conf_file }}"
+  register: heat_conf
+
+- name: Add v1 notifications for heat
+  ini_file:
+    path: "{{ heat_conf_file }}"
+    section: oslo_messaging_notifications
+    option: driver
+    value: messagingv2,messaging
+    backup: yes
+  when: heat_conf.stat.exists == True
+  become: yes
+
+- name: Add notification topic for heat
+  ini_file:
+    path: "{{ heat_conf_file }}"
+    section: oslo_messaging_notifications
+    option: topics
+    value: notifications,r_notifications
+    backup: yes
+  notify: restart heat
+  when: heat_conf.stat.exists == True
+  become: yes

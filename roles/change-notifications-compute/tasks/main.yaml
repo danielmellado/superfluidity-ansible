@@ -1,0 +1,19 @@
+---
+- name: Add v1 notifications for nova
+  ini_file:
+    path: "{{ nova_conf_file }}"
+    section: oslo_messaging_notifications
+    option: driver
+    value: messagingv2,messaging
+    backup: yes
+  become: yes
+
+- name: Add notification topic for nova
+  ini_file:
+    path: "{{ nova_conf_file }}"
+    section: oslo_messaging_notifications
+    option: topics
+    value: notifications,r_notifications
+    backup: yes
+  notify: restart nova
+  become: yes
