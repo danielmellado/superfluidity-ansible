@@ -1,3 +1,7 @@
+neutron_conf_file: /etc/neutron/neutron.conf
+nova_conf_file: /etc/nova/nova.conf
+cinder_conf_file: /etc/cinder/cinder.conf
+heat_conf_file: /etc/heat/heat.conf
 testbed_users:
     - name: admin
       state: present
@@ -80,12 +84,3 @@ testbed_projects:
       members:
           - rufael
           - admin
-
-    - name: intel
-      description 'Intel Project'
-      state: present
-      members:
-        - giuliana
-        - ruth
-        - vincenzo
-        - admin

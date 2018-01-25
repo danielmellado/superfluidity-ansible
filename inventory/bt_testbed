@@ -1,3 +1,4 @@
-bt-testbed-controller
-
 [bt-testbed-controller]
+controller ansible_host=38.145.33.36 ansible_connection=ssh ansible_user=centos
+[bt-testbed-compute]
+compute ansible_host=38.145.33.36 ansible_connection=ssh ansible_user=centos

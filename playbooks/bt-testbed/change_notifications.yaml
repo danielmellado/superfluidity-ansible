@@ -1,0 +1,12 @@
+---
+- hosts: bt-testbed-controller
+  vars_files:
+    - ../../inventory/group_vars/bt_testbed
+  roles:
+    - change-notifications-controller
+
+- hosts: bt-testbed-compute
+  vars_files:
+    - ../../inventory/group_vars/bt_testbed
+  roles:
+    - change-notifications-compute
