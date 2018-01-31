@@ -2,6 +2,56 @@ neutron_conf_file: /etc/neutron/neutron.conf
 nova_conf_file: /etc/nova/nova.conf
 cinder_conf_file: /etc/cinder/cinder.conf
 heat_conf_file: /etc/heat/heat.conf
+testbed_flavors:
+    - name: i1.small
+      ram: 1024
+      vcpus: 1
+      disk: 80
+    - name: i1.medium
+      ram: 2048
+      vcpus: 1
+      disk: 80
+    - name: i1.large
+      ram: 4096
+      vcpus: 1
+      disk: 80
+    - name: i1.xlarge
+      ram: 8192
+      vcpus: 1
+      disk: 80
+    - name: i2.small
+      ram: 1024
+      vcpus: 2
+      disk: 80
+    - name: i2.medium
+      ram: 2048
+      vcpus: 2
+      disk: 80
+    - name: i2.large
+      ram: 4096
+      vcpus: 2
+      disk: 80
+    - name: i2.xlarge
+      ram: 8192
+      vcpus: 2
+      disk: 80
+    - name: i3.small
+      ram: 1024
+      vcpus: 4
+      disk: 80
+    - name: i3.medium
+      ram: 2048
+      vcpus: 4
+      disk: 80
+    - name: i3.large
+      ram: 4096
+      vcpus: 4
+      disk: 80
+    - name: i3.xlarge
+      ram: 8192
+      vcpus: 4
+      disk: 80
+
 testbed_users:
     - name: admin
       state: present

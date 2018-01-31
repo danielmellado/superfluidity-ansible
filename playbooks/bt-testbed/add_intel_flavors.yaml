@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars:
+    cloud: bt-testbed
+  vars_files:
+    - ../../inventory/group_vars/bt_testbed
+  roles:
+    - add-intel-flavors
